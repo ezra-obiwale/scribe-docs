@@ -150,6 +150,8 @@ Tag | Description | Format
 `@group` | Adds an endpoint to a group | `@group <groupName>` <br /> Example: `@group User management`
 `@authenticated` | Indicates that an endpoint needs auth | `@authenticated`
 `@unauthenticated` | Opposite of `@authenticated` | `@unauthenticated`
+`@tryOut` | Indicates that an endpoint can be tried out | `@tryout`
+`@noTryOut` | Opposite of `@tryOut` | `@noTryOut`
 
 ## Request parameter annotations
 ### `@header` / `#[Header]`

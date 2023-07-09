@@ -12,7 +12,7 @@ import {AttributesTagsTabs, TabItem} from '@site/src/components/AttributesTagsTa
 <AttributesTagsTabs>
 <TabItem value="tags">
 
-To set an endpoint's title and description, just write in the method's docblock. The first paragraph is the title, and the rest is the description. There must be a blank line between title and description. Markdown and HTML are also supported (see [HTML helpers](../reference/html)). 
+To set an endpoint's title and description, just write in the method's docblock. The first paragraph is the title, and the rest is the description. There must be a blank line between title and description. Markdown and HTML are also supported (see [HTML helpers](../reference/html)).
 
 For instance:
 
@@ -21,7 +21,7 @@ For instance:
  * Add a word to the list.
  *
  * This endpoint allows you to add a word to the list.
- * It's a really useful endpoint, and you should play around 
+ * It's a really useful endpoint, and you should play around
  * with it for a bit.
  * <aside class="notice">We mean it; you really should.😕</aside>
  */
@@ -40,7 +40,7 @@ For best results, the title and description should come before any annotations (
 <TabItem value="attributes">
 
 
-To set an endpoint's title and description, use the `#[Endpoint]` attribute. Markdown and HTML are also supported (see [HTML helpers](../reference/html)). 
+To set an endpoint's title and description, use the `#[Endpoint]` attribute. Markdown and HTML are also supported (see [HTML helpers](../reference/html)).
 
 For instance:
 
@@ -49,7 +49,7 @@ use Knuckles\Scribe\Attributes\Endpoint;
 
 #[Endpoint("Add a word to the list.", <<<DESC
   This endpoint allows you to add a word to the list.
-  It's a really useful endpoint, and you should play around 
+  It's a really useful endpoint, and you should play around
   with it for a bit.
   <aside class="notice">We mean it; you really should.😕</aside>
  DESC)]
@@ -91,10 +91,10 @@ class UserController extends Controller
 	 {
 
 	 }
-	 
+
 	/**
      * Change a user's password.
-     * 
+     *
 	 * @group Account management
 	 */
 	 public function changePassword()
@@ -121,7 +121,7 @@ class UserController extends Controller
 	public function createUser()
 	{
 	}
-	 
+
 	/**
      * Change a user's password.
 	 */
@@ -150,7 +150,7 @@ You can also specify subgroups, by using the `#[Subgroup]` attribute, or the `@s
  * @group Resource management
  *
  * APIs for managing resources
- * 
+ *
  * @subgroup Servers
  * @subgroupDescription Do stuff with servers
  */
@@ -162,10 +162,10 @@ class ServersController extends Controller
 	 public function createServer()
 	 {
 	 }
-	 
+
 	/**
      * This will be in the "Stats" subgroup of "Resource management"
-     * 
+     *
 	 * @subgroup Stats
 	 */
 	 public function stats()
@@ -194,10 +194,10 @@ class ServersController extends Controller
 	 public function createServer()
 	 {
 	 }
-	 
+
 	/**
      * This will be in the "Stats" subgroup of "Resource management"
-     * 
+     *
 	 * @subgroup Stats
 	 */
     #[Subgroup("Stats")]
@@ -232,7 +232,7 @@ Like with `@group`, you can place these annotations on the controller so you don
      * @authenticated
      */
      public function create()
-     {    
+     {
      }
 ```
 
@@ -250,13 +250,59 @@ use Knuckles\Scribe\Attributes\Authenticated;
      */
      #[Authenticated]
      public function create()
-     {    
+     {
      }
 ```
 </TabItem>
 </AttributesTagsTabs>
 
-A "Requires authentication" badge will be added to that endpoint in the generated documentation. 
+A "Requires authentication" badge will be added to that endpoint in the generated documentation.
 
 ![](/img/screenshots/endpoint-auth.png)
+
+## Enabling/Disabling try outs
+
+If you have `try_it_out.enabled` set to `true` in your config, your endpoints can be tried out from the docs. You can use the `@noTryOut` annotation (or `#[NoTryOut]` attribute) on a method to indicate that the endpoint should not be tried out.
+
+Similarly, if you have `try_it_out.enabled` set to `false` in your config, your endpoints cannot be tried out by default. You can use the `@tryOut` annotation (or `#[TryOut]` attribute) on a method to indicate that the endpoint can be tried out.
+
+:::tip
+Like with `@group`, you can place these annotations on the controller so you don't have to write it on each method.
+:::
+
+
+<AttributesTagsTabs>
+<TabItem value="tags">
+
+```php
+    /**
+     * Create a user
+     *
+     * This endpoint lets you create a user.
+     * @noTryOut
+     */
+     public function create()
+     {
+     }
+```
+
+</TabItem>
+
+<TabItem value="attributes">
+
+```php
+use Knuckles\Scribe\Attributes\NoTryOut;
+
+    /**
+     * Create a user
+     *
+     * This endpoint lets you create a user.
+     */
+     #[NoTryOut]
+     public function create()
+     {
+     }
+```
+</TabItem>
+</AttributesTagsTabs>
 
